@@ -1,5 +1,5 @@
 class Expense
-  attr_reader(:name, :id)
+  attr_reader(:name, :id, :amount, :date)
 
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)
@@ -37,4 +37,14 @@ class Expense
       end
     end
   end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM expenses WHERE id = #{self.id()};")
+  end
+
+  define_method(:update) do |attributes|
+    @name = attributes.fetch(:name)
+    DB.exec("UPDATE expenses SET name = '#{@name}' WHERE id = #{self.id()};")
+  end
+
 end
