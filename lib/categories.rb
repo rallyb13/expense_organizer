@@ -64,5 +64,4 @@ class Category
     end
     expenses
   end
-
 end
