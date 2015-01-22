@@ -37,5 +37,4 @@ class Expense
       end
     end
   end
-
 end
