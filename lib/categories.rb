@@ -46,7 +46,7 @@ class Category
   end
 
   define_method(:add_expense) do |expense|
-    DB.exec("INSERT INTO categories_expenses (expense_id, category_id) VALUES (#{expense.id()}, #{self.id()})")
+    DB.exec("INSERT INTO categories_expenses (expense_id, category_id) VALUES (#{expense.id()}, #{self.id()});")
   end
 
   define_method(:expenses) do

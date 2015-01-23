@@ -1,0 +1,33 @@
+<h1>Expense Organizer</h1>
+
+<h3>Categories:</h3>
+<% if Category.all().any?() %>
+  <ul>
+    <% Category.all().each() do |category| %>
+      <li> <a href="/categories/<%= category.id() %>"><%= category.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no categories!</p>
+<% end %>
+
+<h3>Add a new category!</h3>
+<form action="/categories" method ="post">
+  <input type="text" name="category_name">
+  <br><br>
+  <button type="submit" class="btn btn-success">Add it!</button>
+</form>
+
+<h3>Delete category?</h3>
+<form action="/categories" method="POST">
+  <input name="_method" type="hidden" value="delete">
+  <div class="form-group">
+    <label class = "form-label" for="category_id">Choose line to delete:</label>
+    <select class = "form-control" id="category_id" name="category_id">
+      <% Category.all().each() do |category| %>
+        <option value="<%= category.id() %>"><%= category.name() %></option>
+      <% end %>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Delete category!</button>
+</form>

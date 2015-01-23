@@ -1,0 +1,40 @@
+<% category = Category.find(@id) %>
+<h1>Add expenses to your <%= category.name() %> category!</h1>
+
+<h3>Expenses:</h3>
+<% if category.expenses().any?() %>
+  <ul>
+    <% category.expenses().each() do |expense| %>
+      <li> <%= expense.name() %> <br> $<%= expense.amount() %> <br> <%= expense.date() %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no expenses! Lucky you?</p>
+<% end %>
+<hr>
+<h3>Add a new expense!</h3>
+<form action="/expenses" method ="post">
+  <input type="hidden" name="category_id" value="<%= @id %>">
+  <label for="expense_name">Name:</label>
+  <input type="text" name="expense_name">
+  <label for="expense_amount">Amount:</label>
+  <input type="text" name="expense_amount">
+  <label for="expense_date">Date:</label>
+  <input type="text" name="expense_date">
+  <br><br>
+  <button type="submit" class="btn btn-success">Add it!</button>
+</form>
+
+<h3>Delete expense?</h3>
+<form action="/expenses" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <div class="form-group">
+    <label class = "form-label" for="expense_id">Choose line to delete:</label>
+    <select class = "form-control" id="expense_id" name="expense_id">
+      <% category.expenses().each() do |expense| %>
+        <option value="<%= expense.id() %>"><%= expense.name() %></option>
+      <% end %>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Delete expense!</button>
+</form>
